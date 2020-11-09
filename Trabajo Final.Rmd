@@ -1,0 +1,145 @@
+---
+output:
+  html_document:
+    
+    toc: TRUE
+    toc_float: TRUE
+    theme: flatly
+title: "Informe Estadístico"
+subtitle: |
+  Habilidades comunicativas para Estadísticos
+  
+author: Cristián Dibán Quiroga
+date: "`r format(Sys.time(), '%A %d de %B, %Y')`"
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+lang: es
+spacing: double
+endnote: yes
+linkcolor: cyan
+urlcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+library(datos)
+library(ggplot2)
+library(gghighlight)
+library(readxl)
+```
+
+
+```{r, include=FALSE}
+
+futbol <- read.csv("C:/Users/cdiba/Documents/PUC/2020-2/LET0010 Habilidades Comunicativas para Estadísticos/GitHub/Repositorio-de-prueba/Womens International Football Results.csv",
+                   header = TRUE,
+                   sep =",")
+
+
+colnames = c("HDI_Rank_(2018)",'Country','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018')
+
+genero <- read.csv("C:/Users/cdiba/Documents/PUC/2020-2/LET0010 Habilidades Comunicativas para Estadísticos/GitHub/Repositorio-de-prueba/Gender.csv",
+                   sep =",",
+                   quote = "",
+                   na.strings = c(".."),
+                   colClasses = c("numeric", "character",rep("numeric",28)),
+                   col.names = colnames)
+
+regions <- read.csv("C:/Users/cdiba/Documents/PUC/2020-2/LET0010 Habilidades Comunicativas para Estadísticos/GitHub/Repositorio-de-prueba/Regions.csv",
+                   sep =",",
+                   quote = "",
+                   na.strings = c(".."),
+                   colClasses = c("character",rep("numeric",28)))
+
+HD <- read.csv("C:/Users/cdiba/Documents/PUC/2020-2/LET0010 Habilidades Comunicativas para Estadísticos/GitHub/Repositorio-de-prueba/HumanDevelopment.csv",
+                   sep =",",
+                   quote = "",
+                   na.strings = c(".."),
+               colClasses = c("character",rep("numeric",28)))
+
+```
+
+
+
+
+```{r}
+#Prueba de GG plot
+#chile <- futbol[futbol$home_score == "Chile",futbol$away_team == "Chile"]
+
+#ggplot(ga, aes(gdpPercap, lifeExp)) +
+#  geom_point(alpha = 0.5) +
+#  scale_x_log10(labels = scales::dollar) +
+#  labs(title = "Crecimiento económico y expectativa de vida en el mundo (1952 - 2007)",
+#       subtitle = "Cada punto representa un país-año",
+#       x = "PIB per cápita en dólares",
+#       y = "Expectativa de vida",
+#       caption = "Fuente de los datos: proyecto Gapminder")
+
+```
+
+
+## Introducción
+
+¿Cuál es el tema general que abordarás en el trabajo?
+
+- La evolución del fútbol femenino y sus diferencias en zonas con mayor y menor índices de igualdad de género
+
+¿En qué contexto se enmarca el análisis? (tiempo, lugar)
+
+- desde 1990 a la actualidad, en un marco mundial, con énfasis en Chile.
+
+¿cual es la información mínima necesaria para entender de qué estoy hablando?
+
+-A lo largo del desarrollo del fútbol femenino, existen diferentes evoluciones de su profesionalización que han sido marcadas por la igualdad/desigualdad de gnénero en el país 
+
+¿cuál es el problema o la necesidad identificada dentro de ese tema?
+
+En Chile no se ha desarrollado el FF conforme a su índice de igualdad de género.
+El d° del FF está directamente vinculado con la igualdad de género y oportunidades.
+
+
+-¿qué concecuencias o implicancias tiene ese problema/necesidad?
+
+Se traduce en menos oportunidades para las personas que desean practicar fútbol femenino, en desorbitantes diferencias de nivel de competencia con países con mayor igualdad de género.
+
+¿por qué sería bueno entender mejor este tema?
+
+-
+
+¿cuáles son las preguntas que esperas responder con tu análisis?
+
+-¿porqué existen tantas diferencias de calidad en el fútbol femenino? ¿cómo se vinculan la igualdad de género en el país y el desarrollo del FF?
+
+¿cuáles son los objetivos de tu análisis?
+
+- Evidenciar mediante análisis estadístico las distancias de un desarrollo de fútbol femenino con igualdad y perspectiva de género vs uno que no tiene esos ideales o valores.
+
+
+¿qué partes tendrá tu trabajo?
+
+Contexto-introducción al problema-antecedentes
+Desarrollo-explicación de la evidencia
+manipulación de datos y creación de modelo lineal
+conclusion
+
+¿qué encontrará quien lea tu trabajo en cada una de esas secciones?
+
+Contexto-introducción al problema-antecedentes: relato lineal sobre los orígenes del FF en el mundo y en Chile, hasta llegar a la actualidad.
+Desarrollo-explicación de la evidencia: motivación y 
+manipulación de datos y creación de modelo lineal: explicación descriptiva, de gráficos y de información suelta
+conslución: 
+
+
+¿es necesario incluir una seccion con antecedentes sobre el tema? Para responder esta pregunta, piensa en lo siguiente: ¿hay información que hará más fácil entender los resultados obtenidos? ¿información sobre qué?
+
+Si.
+Sobre antecedentes del FF. (y cómo se bifurcan los caminos de los países)
+
+
+# Cambio de prueba
