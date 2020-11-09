@@ -1596,52 +1596,85 @@ div.tocify {
 </div>
 
 
-<pre class="r"><code>#Prueba de GG plot
-#chile &lt;- futbol[futbol$home_score == &quot;Chile&quot;,futbol$away_team == &quot;Chile&quot;]
-
-#ggplot(ga, aes(gdpPercap, lifeExp)) +
-#  geom_point(alpha = 0.5) +
-#  scale_x_log10(labels = scales::dollar) +
-#  labs(title = &quot;Crecimiento económico y expectativa de vida en el mundo (1952 - 2007)&quot;,
-#       subtitle = &quot;Cada punto representa un país-año&quot;,
-#       x = &quot;PIB per cápita en dólares&quot;,
-#       y = &quot;Expectativa de vida&quot;,
-#       caption = &quot;Fuente de los datos: proyecto Gapminder&quot;)</code></pre>
-<div id="introducción" class="section level2">
-<h2>Introducción</h2>
-<p>Este informe se trata de ¿Cuál es el tema general que abordarás en el trabajo?</p>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p>Este informe abordará la evolución del fútbol femenino y sus diferencia en zonas geográficas políticas con mayor y menor índices de igualdad de género, evaluando el cambio desde 1990 hasta la actualidad, con énfasis en Sudamérica y Chile.</p>
+<p>A lo largo del desarrollo del fútbol femenino, las ramas de su evolución en distintos países han sido muy diferentes y marcadas por la profesionalización del deporte y la desigualdad de género en el país. En Chile, pese a esfuerzos de ciertas instituciones, no se ha desarrollado acorde al índice de igualdad de género<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> esperable en la región, demostrando una directa relación entre la igualdad de género, oportunidades y el desarrollo de este deporte. Este tema implica la poca motivación de iniciarse y comprometerse con proyectos en las ramas de fútbol femenino de clubes tanto profesionales <em>(con ramas femeninas amateur)</em> como clubes íntegramente aficionados, que a la larga, aumenta aún más las diferencias con países en los cuales ésta rama es igual de importante que la masculina.</p>
+<p>Diferentes organizaciones motivan y difunden el desarrollo y práctica del Fútbol Femenino en Chile, tales como la <a href="https://anjuff.cl/">Asociación Nacional de Jugadoras de Fútbol Femenino</a>, la <a href="https://futbolmas.org/">Fundación Fútbol Más</a>, y también agrupaciones como <a href="https://nuestracruzada.cl">Nuestra Cruzada</a>.</p>
+<p>La importancia de entender porqué se ha desarrollado en forma distinta en cada país, viene principalmente porque al tener un organismo rector del fútbol y clubes afiliados a éste, que no fortalecen sus ligas locales, no consiguen tener selecciones suficientemente fuertes, en donde el desarrollo de esa selección esté ligada a la profesionalización de las ligas. La inversión consciente y comprometida en el deporte femenino tiende a equiparar el nivel y competividad de las competiciones con los equipos masculinos. <em>La conquista de derechos no es una cuestión de fe en el fútbol femenino, es una aportación constante de argumentos sólidos en esa lucha hacia la profesionalización<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</em></p>
+<p>Unas de las preguntas que intentará resolver este informe será develar porqué existen tantas diferencias de calidad en el fútbol femenino y cómo se vinculan con la igualdad de género en el país y su desarrollo deportivo. El objetivo de análisis será parte de evidenciar mediante análisis estadísticos, las distancias de un desarrollo de fútbol femenino con igualdad y perspectiva de género a diferencia de países que no tienen estos objetivos o proyectos.</p>
+<div id="extras" class="section level2">
+<h2>Extras</h2>
+<div class="panel panel-warning">
+<p><strong>Estas preguntas no sé cómo incluirlas:</strong></p>
+<div class="panel-body">
+<p><span style="color:blue"><font size="2"></p>
+<p>¿qué partes tendrá tu trabajo?</p>
+<p>-Contexto-introducción al problema-antecedentes Desarrollo-explicación de la evidencia manipulación de datos y creación de modelo lineal conclusion</p>
+<p>¿qué encontrará quien lea tu trabajo en cada una de esas secciones?</p>
 <ul>
-<li>La evolución del fútbol femenino y sus diferencias en zonas con mayor y menor índices de igualdad de género</li>
+<li>Contexto-introducción al problema-antecedentes: relato lineal sobre los orígenes del FF en el mundo y en Chile, hasta llegar a la actualidad.</li>
+<li>Desarrollo-explicación de la evidencia: motivación y manipulación de datos y creación de modelo lineal: explicación descriptiva, de gráficos y de información suelta</li>
+<li>conclusión.</li>
 </ul>
+<p>¿es necesario incluir una seccion con antecedentes sobre el tema? Para responder esta pregunta, piensa en lo siguiente: ¿hay información que hará más fácil entender los resultados obtenidos? ¿información sobre qué?</p>
+<ul>
+<li>Sí, sobre antecedentes del FF. (y cómo se bifurcan los caminos de los países)</span></li>
+</ul>
+</div>
+</div>
+<div class="panel panel-danger">
+<p><strong>Preguntas guía</strong></p>
+<div class="panel-body">
+<p><span style="color:green"><font size="2"></p>
+<p>¿Cuál es el tema general que abordarás en el trabajo?</p>
+<p>La evolución del fútbol femenino y sus diferencias en zonas con mayor y menor índices de igualdad de género</p>
 <p>¿En qué contexto se enmarca el análisis? (tiempo, lugar)</p>
-<ul>
-<li>desde 1990 a la actualidad, en un marco mundial, con énfasis en Chile.</li>
-</ul>
+<p>desde 1990 a la actualidad, en un marco mundial, con énfasis en Chile.</p>
 <p>¿cual es la información mínima necesaria para entender de qué estoy hablando?</p>
-<p>-A lo largo del desarrollo del fútbol femenino, existen diferentes evoluciones de su profesionalización que han sido marcadas por la igualdad/desigualdad de gnénero en el país</p>
+<p>A lo largo del desarrollo del fútbol femenino, existen diferentes evoluciones de su profesionalización que han sido marcadas por la igualdad/desigualdad de gnénero en el país</p>
 <p>¿cuál es el problema o la necesidad identificada dentro de ese tema?</p>
 <p>En Chile no se ha desarrollado el FF conforme a su índice de igualdad de género. El d° del FF está directamente vinculado con la igualdad de género y oportunidades.</p>
-<p>-¿qué concecuencias o implicancias tiene ese problema/necesidad?</p>
-<p>Se traduce en menos oportunidades para las personas que desean practicar fútbol femenino, en desorbitantes diferencias de nivel de competencia con países con mayor igualdad de género.</p>
-<p>¿por qué sería bueno entender mejor este tema?</p>
-<ul>
-<li></li>
-</ul>
+<p>¿qué concecuencias o implicancias tiene ese problema/necesidad?</p>
+<p>Se traduce en menos oportunidades para las personas que desean practicar fútbol femenino, en desorbitantes diferencias de nivel de competencia con países con mayor igualdad de género. ¿por qué sería bueno entender mejor este tema?</p>
+<p>.</p>
 <p>¿cuáles son las preguntas que esperas responder con tu análisis?</p>
-<p>-¿porqué existen tantas diferencias de calidad en el fútbol femenino? ¿cómo se vinculan la igualdad de género en el país y el desarrollo del FF?</p>
+<p>¿porqué existen tantas diferencias de calidad en el fútbol femenino? ¿cómo se vinculan la igualdad de género en el país y el desarrollo del FF?</p>
 <p>¿cuáles son los objetivos de tu análisis?</p>
-<ul>
-<li>Evidenciar mediante análisis estadístico las distancias de un desarrollo de fútbol femenino con igualdad y perspectiva de género vs uno que no tiene esos ideales o valores.</li>
-</ul>
-<p>¿qué partes tendrá tu trabajo?</p>
-<p>Contexto-introducción al problema-antecedentes Desarrollo-explicación de la evidencia manipulación de datos y creación de modelo lineal conclusion</p>
-<p>¿qué encontrará quien lea tu trabajo en cada una de esas secciones?</p>
-<p>Contexto-introducción al problema-antecedentes: relato lineal sobre los orígenes del FF en el mundo y en Chile, hasta llegar a la actualidad. Desarrollo-explicación de la evidencia: motivación y manipulación de datos y creación de modelo lineal: explicación descriptiva, de gráficos y de información suelta conslución:</p>
-<p>¿es necesario incluir una seccion con antecedentes sobre el tema? Para responder esta pregunta, piensa en lo siguiente: ¿hay información que hará más fácil entender los resultados obtenidos? ¿información sobre qué?</p>
-<p>Si. Sobre antecedentes del FF. (y cómo se bifurcan los caminos de los países)</p>
+<p>Evidenciar mediante análisis estadístico las distancias de un desarrollo de fútbol femenino con igualdad y perspectiva de género vs uno que no tiene esos ideales o valores </font> </span>.</p>
 </div>
-<div id="cambio-de-prueba" class="section level1">
-<h1>Cambio de prueba</h1>
+</div>
+<hr />
+</div>
+<div id="antecedentes-y-publicaciones-relativas" class="section level2">
+<h2>Antecedentes y publicaciones relativas:</h2>
+<p><em>(Esta sección no será parte del informe, pero será una parte importante de la Bibliografía que inverstigaré y me apoyaré)</em></p>
+<ul>
+<li><p><a href="https://www.bigbangnews.com/actualidad/a-un-ano-de-la-profesionalizacion-del-futbol-femenino-la-lucha-de-las-jugadoras-esta-lejos-de-terminar-20203514410">BigBangNews: A un año de la profesionalización del fútbol femenino (en Argentina), la lucha de las jugadoras está lejos de terminar</a></p></li>
+<li><p><a href="https://www.bigbangnews.com/actualidad/a-un-ano-de-la-profesionalizacion-del-futbol-femenino-la-lucha-de-las-jugadoras-esta-lejos-de-terminar-20203514410">Columna del Colectivo Nuestra Cruzada: Fútbol femenino: la deuda de Chile vs. el inicio de la profesionalización en Argentina</a></p></li>
+<li><p><a href="https://johancruyffinstitute.com">Johan Cruyff Institute</a></p></li>
+</ul>
+</div>
+<div id="siguientes-pasos" class="section level2">
+<h2>Siguientes pasos</h2>
+<ul>
+<li>Desarollar y juntar las bbdd actuales
+<ul>
+<li>Buscar más datos sobre índices de equidad de género</li>
+</ul></li>
+<li>Entrevistar a alguna jugadora actual de FF: opción, Catalina López, Santiago Morning femenino 2020.</li>
+</ul>
+</div>
+</div>
+<div id="bibliografía" class="section level1">
+<h1>Bibliografía</h1>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://hdr.undp.org/en/data">UNITED NATIONS DEVELOPMENT PROGRAMME Human Development Reports</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://johancruyffinstitute.com/es/blog-es/administracion-del-futbol/la-profesionalizacion-del-futbol-femenino/">Johan Cruyff Institute: La profesionalización del fútbol femenino, ¿sólo una cuestión de tiempo?</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
