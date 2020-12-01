@@ -1,5 +1,5 @@
 
-*BBDD Partidos*
+**BBDD fútbol**
 
 |  Variable  | Tipo de variable | Descripción                                                  |
 |:----------:|------------------|--------------------------------------------------------------|
@@ -14,7 +14,7 @@
 | neutral    | booleana         | indica TRUE si el partido fue en campo neutral o FALSE si no |
 
 
-*BBDD Índice de Igualdad de Género*
+**BBDD Índice de Igualdad de Género**
 |     Variable    | Tipo de variable | Descripción                             |
 |:---------------:|------------------|-----------------------------------------|
 | HDI_Rank_.2018. | entero           | Número en el ranking actual al año 2018 |
