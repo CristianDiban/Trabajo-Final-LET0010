@@ -32,32 +32,35 @@ library(datos)
 library(ggplot2)
 library(gghighlight)
 library(readxl)
+library(tidyr)
+library(dplyr)
+
 ```
 
 
 ```{r, include=FALSE}
 
-futbol <- read.csv("C:/Users/cdiba/Desktop/GitHub/Womens International Football Results.csv",
+futbol <- read.csv(here::here("datos-procesados/Data-futbol-procesados.csv"),
                    header = TRUE,
                    sep =",")
 
 
 colnames = c("HDI_Rank_(2018)",'Country','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018')
 
-genero <- read.csv("C:/Users/cdiba/Desktop/GitHub/Gender.csv",
+genero <- read.csv(here::here("datos-sin-procesar/Gender.csv"),
                    sep =",",
                    quote = "",
                    na.strings = c(".."),
                    colClasses = c("numeric", "character",rep("numeric",28)),
                    col.names = colnames)
 
-regions <- read.csv("C:/Users/cdiba/Desktop/GitHub/Regions.csv",
+regions <- read.csv(here::here("datos-sin-procesar/Regions.csv"),
                    sep =",",
                    quote = "",
                    na.strings = c(".."),
                    colClasses = c("character",rep("numeric",28)))
 
-HD <- read.csv("C:/Users/cdiba/Desktop/GitHub/HumanDevelopment.csv",
+HD <- read.csv(here::here("datos-sin-procesar/HumanDevelopment.csv"),
                    sep =",",
                    quote = "",
                    na.strings = c(".."),
@@ -65,19 +68,27 @@ HD <- read.csv("C:/Users/cdiba/Desktop/GitHub/HumanDevelopment.csv",
 
 ```
 
+```{r}
+#Eliminamos las filas que contengan datos NA 
+futbol <- na.omit(futbol)
+
+chile <- futbol[futbol$home_team == "Chile" | futbol$away_team == "Chile" ,]
+
+table(futbol, )
+```
+
+
 
 ```{r, include=FALSE}
 #Prueba de GG plot
-#chile <- futbol[futbol$home_score == "Chile",futbol$away_team == "Chile"]
 
-#ggplot(ga, aes(gdpPercap, lifeExp)) +
-#  geom_point(alpha = 0.5) +
-#  scale_x_log10(labels = scales::dollar) +
-#  labs(title = "Crecimiento económico y expectativa de vida en el mundo (1952 - 2007)",
-#       subtitle = "Cada punto representa un país-año",
-#       x = "PIB per cápita en dólares",
-#       y = "Expectativa de vida",
-#       caption = "Fuente de los datos: proyecto Gapminder")
+ggplot(futbol, aes(x = date, y = tournament)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Título",
+       subtitle = "Subtítulo",
+       x = "x label",
+       y = "y label",
+       caption = "caption")
 
 ```
 
