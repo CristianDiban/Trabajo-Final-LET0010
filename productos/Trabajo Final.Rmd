@@ -27,7 +27,10 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
-
+knitr::knit_engines$set(python = reticulate::eng_python)
+library(reticulate)
+use_python("/usr/local/bin/python")
+#Sys.which("python")
 library(datos)
 library(ggplot2)
 library(gghighlight)
@@ -52,6 +55,7 @@ library(knitr)
 library(kableExtra)
 library(xtable)
 library(reliaR)
+library(anytime)
 
 ```
 
@@ -60,7 +64,8 @@ library(reliaR)
 
 futbol <- read.csv(here::here("datos-procesados/Data-futbol-procesados.csv"),
                    header = TRUE,
-                   sep =",")
+                   sep =",",
+                   encoding = "UTF-8")
 
 
 colnames = c("HDI_Rank_(2018)",'Country','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018')
@@ -70,47 +75,23 @@ genero <- read.csv(here::here("datos-sin-procesar/Gender.csv"),
                    quote = "",
                    na.strings = c(".."),
                    colClasses = c("numeric", "character",rep("numeric",28)),
-                   col.names = colnames)
+                   col.names = colnames,
+                   encoding = "UTF-8")
 
 regions <- read.csv(here::here("datos-sin-procesar/Regions.csv"),
                    sep =",",
                    quote = "",
                    na.strings = c(".."),
-                   colClasses = c("character",rep("numeric",28)))
+                   colClasses = c("character",rep("numeric",28)),
+                   encoding = "UTF-8")
 
 HD <- read.csv(here::here("datos-sin-procesar/HumanDevelopment.csv"),
                    sep =",",
                    quote = "",
                    na.strings = c(".."),
-               colClasses = c("character",rep("numeric",28)))
+               colClasses = c("character",rep("numeric",28)),
+               encoding = "UTF-8")
 
-```
-
-```{python}
-# This Python 3 environment comes with many helpful analytics libraries installed
-# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
-# For example, here's several helpful packages to load
-
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-import matplotlib.pyplot as plt 
-import seaborn as sns
-%matplotlib inline
-import plotly.express as px
-import plotly.graph_objects as go
-import plotly.offline as py
-import plotly.express as px
-
-# Input data files are available in the read-only "../input/" directory
-# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
-
-import os
-for dirname, _, filenames in os.walk('/kaggle/input'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
-
-# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
-# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
 ```
 
 
@@ -119,15 +100,207 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
 futbol <- na.omit(futbol)
 futbol$home_score <- as.integer(futbol$home_score)
 futbol$away_score <- as.integer(futbol$away_score)
-futbol$date <- as.Date(futbol$date)
+futbol$date <- anydate(futbol$date)
 
-paises <- as.character(unique(futbol$home_team))
+paises <- (unique(futbol$home_team))
+```
 
-#todos los partidos de Chile
-chile <-as.data.frame(futbol[futbol$home_team == "Chile" | futbol$away_team == "Chile" ,])
+#todos los partidos de cada selección:
+```{r}
 
-rendimiento = c()
+StVGrenadines=as.data.frame(futbol[futbol$home_team=="Saint Vincent and the Grenadines"|futbol$away_team=="Saint Vincent and the Grenadines",])
+Italy=as.data.frame(futbol[futbol$home_team=="Italy"|futbol$away_team=="Italy",])
+Denmark=as.data.frame(futbol[futbol$home_team=="Denmark"|futbol$away_team=="Denmark",])
+England=as.data.frame(futbol[futbol$home_team=="England"|futbol$away_team=="England",])
+Thailand=as.data.frame(futbol[futbol$home_team=="Thailand"|futbol$away_team=="Thailand",])
+HongKong=as.data.frame(futbol[futbol$home_team=="Hong Kong"|futbol$away_team=="Hong Kong",])
+NewZealand=as.data.frame(futbol[futbol$home_team=="New Zealand"|futbol$away_team=="New Zealand",])
+Australia=as.data.frame(futbol[futbol$home_team=="Australia"|futbol$away_team=="Australia",])
+ChineseTaipei=as.data.frame(futbol[futbol$home_team=="Chinese Taipei"|futbol$away_team=="Chinese Taipei",])
+Indonesia=as.data.frame(futbol[futbol$home_team=="Indonesia"|futbol$away_team=="Indonesia",])
+Singapore=as.data.frame(futbol[futbol$home_team=="Singapore"|futbol$away_team=="Singapore",])
+Sweden=as.data.frame(futbol[futbol$home_team=="Sweden"|futbol$away_team=="Sweden",])
+NorthernIreland=as.data.frame(futbol[futbol$home_team=="Northern Ireland"|futbol$away_team=="Northern Ireland",])
+France=as.data.frame(futbol[futbol$home_team=="France"|futbol$away_team=="France",])
+Switzerland=as.data.frame(futbol[futbol$home_team=="Switzerland"|futbol$away_team=="Switzerland",])
+Wales=as.data.frame(futbol[futbol$home_team=="Wales"|futbol$away_team=="Wales",])
+IndiaN=as.data.frame(futbol[futbol$home_team=="India N"|futbol$away_team=="India N",])
+WesternAustralia=as.data.frame(futbol[futbol$home_team=="Western Australia"|futbol$away_team=="Western Australia",])
+IndiaS=as.data.frame(futbol[futbol$home_team=="India S"|futbol$away_team=="India S",])
+Japan=as.data.frame(futbol[futbol$home_team=="Japan"|futbol$away_team=="Japan",])
+India=as.data.frame(futbol[futbol$home_team=="India"|futbol$away_team=="India",])
+Finland=as.data.frame(futbol[futbol$home_team=="Finland"|futbol$away_team=="Finland",])
+Norway=as.data.frame(futbol[futbol$home_team=="Norway"|futbol$away_team=="Norway",])
+Iceland=as.data.frame(futbol[futbol$home_team=="Iceland"|futbol$away_team=="Iceland",])
+Scotland=as.data.frame(futbol[futbol$home_team=="Scotland"|futbol$away_team=="Scotland",])
+Belgium=as.data.frame(futbol[futbol$home_team=="Belgium"|futbol$away_team=="Belgium",])
+Netherlands=as.data.frame(futbol[futbol$home_team=="Netherlands"|futbol$away_team=="Netherlands",])
+RepublicofIreland=as.data.frame(futbol[futbol$home_team=="Republic of Ireland"|futbol$away_team=="Republic of Ireland",])
+Portugal=as.data.frame(futbol[futbol$home_team=="Portugal"|futbol$away_team=="Portugal",])
+Germany=as.data.frame(futbol[futbol$home_team=="Germany"|futbol$away_team=="Germany",])
+Malaysia=as.data.frame(futbol[futbol$home_team=="Malaysia"|futbol$away_team=="Malaysia",])
+Philippines=as.data.frame(futbol[futbol$home_team=="Philippines"|futbol$away_team=="Philippines",])
+NewCaledonia=as.data.frame(futbol[futbol$home_team=="New Caledonia"|futbol$away_team=="New Caledonia",])
+Hungary=as.data.frame(futbol[futbol$home_team=="Hungary"|futbol$away_team=="Hungary",])
+Spain=as.data.frame(futbol[futbol$home_team=="Spain"|futbol$away_team=="Spain",])
+ChinaPR=as.data.frame(futbol[futbol$home_team=="China PR"|futbol$away_team=="China PR",])
+Czechoslovakia=as.data.frame(futbol[futbol$home_team=="Czechoslovakia"|futbol$away_team=="Czechoslovakia",])
+Bulgaria=as.data.frame(futbol[futbol$home_team=="Bulgaria"|futbol$away_team=="Bulgaria",])
+Poland=as.data.frame(futbol[futbol$home_team=="Poland"|futbol$away_team=="Poland",])
+NorthKorea=as.data.frame(futbol[futbol$home_team=="North Korea"|futbol$away_team=="North Korea",])
+Nigeria=as.data.frame(futbol[futbol$home_team=="Nigeria"|futbol$away_team=="Nigeria",])
+Ghana=as.data.frame(futbol[futbol$home_team=="Ghana"|futbol$away_team=="Ghana",])
+Canada=as.data.frame(futbol[futbol$home_team=="Canada"|futbol$away_team=="Canada",])
+Haiti=as.data.frame(futbol[futbol$home_team=="Haiti"|futbol$away_team=="Haiti",])
+UnitedStates=as.data.frame(futbol[futbol$home_team=="United States"|futbol$away_team=="United States",])
+Martinique=as.data.frame(futbol[futbol$home_team=="Martinique"|futbol$away_team=="Martinique",])
+TrinidadandTobago=as.data.frame(futbol[futbol$home_team=="Trinidad and Tobago"|futbol$away_team=="Trinidad and Tobago",])
+Jamaica=as.data.frame(futbol[futbol$home_team=="Jamaica"|futbol$away_team=="Jamaica",])
+Brazil=as.data.frame(futbol[futbol$home_team=="Brazil"|futbol$away_team=="Brazil",])
+Chile=as.data.frame(futbol[futbol$home_team=="Chile"|futbol$away_team=="Chile",])
+Guinea=as.data.frame(futbol[futbol$home_team=="Guinea"|futbol$away_team=="Guinea",])
+PapuaNewGuinea=as.data.frame(futbol[futbol$home_team=="Papua New Guinea"|futbol$away_team=="Papua New Guinea",])
+Cameroon=as.data.frame(futbol[futbol$home_team=="Cameroon"|futbol$away_team=="Cameroon",])
+Russia=as.data.frame(futbol[futbol$home_team=="Russia"|futbol$away_team=="Russia",])
+Greece=as.data.frame(futbol[futbol$home_team=="Greece"|futbol$away_team=="Greece",])
+Romania=as.data.frame(futbol[futbol$home_team=="Romania"|futbol$away_team=="Romania",])
+Yugoslavia=as.data.frame(futbol[futbol$home_team=="Yugoslavia"|futbol$away_team=="Yugoslavia",])
+Lithuania=as.data.frame(futbol[futbol$home_team=="Lithuania"|futbol$away_team=="Lithuania",])
+Ukraine=as.data.frame(futbol[futbol$home_team=="Ukraine"|futbol$away_team=="Ukraine",])
+Latvia=as.data.frame(futbol[futbol$home_team=="Latvia"|futbol$away_team=="Latvia",])
+Slovenia=as.data.frame(futbol[futbol$home_team=="Slovenia"|futbol$away_team=="Slovenia",])
+Slovakia=as.data.frame(futbol[futbol$home_team=="Slovakia"|futbol$away_team=="Slovakia",])
+Croatia=as.data.frame(futbol[futbol$home_team=="Croatia"|futbol$away_team=="Croatia",])
+CzechRepublic=as.data.frame(futbol[futbol$home_team=="Czech Republic"|futbol$away_team=="Czech Republic",])
+Mexico=as.data.frame(futbol[futbol$home_team=="Mexico"|futbol$away_team=="Mexico",])
+SouthAfrica=as.data.frame(futbol[futbol$home_team=="South Africa"|futbol$away_team=="South Africa",])
+SierraLeone=as.data.frame(futbol[futbol$home_team=="Sierra Leone"|futbol$away_team=="Sierra Leone",])
+Zambia=as.data.frame(futbol[futbol$home_team=="Zambia"|futbol$away_team=="Zambia",])
+Argentina=as.data.frame(futbol[futbol$home_team=="Argentina"|futbol$away_team=="Argentina",])
+Ecuador=as.data.frame(futbol[futbol$home_team=="Ecuador"|futbol$away_team=="Ecuador",])
+Angola=as.data.frame(futbol[futbol$home_team=="Angola"|futbol$away_team=="Angola",])
+Austria=as.data.frame(futbol[futbol$home_team=="Austria"|futbol$away_team=="Austria",])
+Uzbekistan=as.data.frame(futbol[futbol$home_team=="Uzbekistan"|futbol$away_team=="Uzbekistan",])
+FaroeIslands=as.data.frame(futbol[futbol$home_team=="Faroe Islands"|futbol$away_team=="Faroe Islands",])
+SouthKorea=as.data.frame(futbol[futbol$home_team=="South Korea"|futbol$away_team=="South Korea",])
+Kazakhstan=as.data.frame(futbol[futbol$home_team=="Kazakhstan"|futbol$away_team=="Kazakhstan",])
+FRYugoslavia=as.data.frame(futbol[futbol$home_team=="FR Yugoslavia"|futbol$away_team=="FR Yugoslavia",])
+Belarus=as.data.frame(futbol[futbol$home_team=="Belarus"|futbol$away_team=="Belarus",])
+Estonia=as.data.frame(futbol[futbol$home_team=="Estonia"|futbol$away_team=="Estonia",])
+Turkey=as.data.frame(futbol[futbol$home_team=="Turkey"|futbol$away_team=="Turkey",])
+Paraguay=as.data.frame(futbol[futbol$home_team=="Paraguay"|futbol$away_team=="Paraguay",])
+Colombia=as.data.frame(futbol[futbol$home_team=="Colombia"|futbol$away_team=="Colombia",])
+Uruguay=as.data.frame(futbol[futbol$home_team=="Uruguay"|futbol$away_team=="Uruguay",])
+Venezuela=as.data.frame(futbol[futbol$home_team=="Venezuela"|futbol$away_team=="Venezuela",])
+Bolivia=as.data.frame(futbol[futbol$home_team=="Bolivia"|futbol$away_team=="Bolivia",])
+Peru=as.data.frame(futbol[futbol$home_team=="Peru"|futbol$away_team=="Peru",])
+Mozambique=as.data.frame(futbol[futbol$home_team=="Mozambique"|futbol$away_team=="Mozambique",])
+Egypt=as.data.frame(futbol[futbol$home_team=="Egypt"|futbol$away_team=="Egypt",])
+Guatemala=as.data.frame(futbol[futbol$home_team=="Guatemala"|futbol$away_team=="Guatemala",])
+ElSalvador=as.data.frame(futbol[futbol$home_team=="El Salvador"|futbol$away_team=="El Salvador",])
+CostaRica=as.data.frame(futbol[futbol$home_team=="Costa Rica"|futbol$away_team=="Costa Rica",])
+PuertoRico=as.data.frame(futbol[futbol$home_team=="Puerto Rico"|futbol$away_team=="Puerto Rico",])
+Fiji=as.data.frame(futbol[futbol$home_team=="Fiji"|futbol$away_team=="Fiji",])
+DRCongo=as.data.frame(futbol[futbol$home_team=="DR Congo"|futbol$away_team=="DR Congo",])
+Uganda=as.data.frame(futbol[futbol$home_team=="Uganda"|futbol$away_team=="Uganda",])
+Morocco=as.data.frame(futbol[futbol$home_team=="Morocco"|futbol$away_team=="Morocco",])
+Eswatini=as.data.frame(futbol[futbol$home_team=="Eswatini"|futbol$away_team=="Eswatini",])
+Lesotho=as.data.frame(futbol[futbol$home_team=="Lesotho"|futbol$away_team=="Lesotho",])
+Honduras=as.data.frame(futbol[futbol$home_team=="Honduras"|futbol$away_team=="Honduras",])
+Nicaragua=as.data.frame(futbol[futbol$home_team=="Nicaragua"|futbol$away_team=="Nicaragua",])
+BosniaandHerzegovina=as.data.frame(futbol[futbol$home_team=="Bosnia and Herzegovina"|futbol$away_team=="Bosnia and Herzegovina",])
+Israel=as.data.frame(futbol[futbol$home_team=="Israel"|futbol$away_team=="Israel",])
+Vietnam=as.data.frame(futbol[futbol$home_team=="Vietnam"|futbol$away_team=="Vietnam",])
+Guam=as.data.frame(futbol[futbol$home_team=="Guam"|futbol$away_team=="Guam",])
+Reunion=as.data.frame(futbol[futbol$home_team=="RÃ©union"|futbol$away_team=="RÃ©union",])
+Gabon=as.data.frame(futbol[futbol$home_team=="Gabon"|futbol$away_team=="Gabon",])
+Zimbabwe=as.data.frame(futbol[futbol$home_team=="Zimbabwe"|futbol$away_team=="Zimbabwe",])
+Algeria=as.data.frame(futbol[futbol$home_team=="Algeria"|futbol$away_team=="Algeria",])
+DominicanRepublic=as.data.frame(futbol[futbol$home_team=="Dominican Republic"|futbol$away_team=="Dominican Republic",])
+SaintLucia=as.data.frame(futbol[futbol$home_team=="Saint Lucia"|futbol$away_team=="Saint Lucia",])
+Mali=as.data.frame(futbol[futbol$home_team=="Mali"|futbol$away_team=="Mali",])
+Panama=as.data.frame(futbol[futbol$home_team=="Panama"|futbol$away_team=="Panama",])
+Suriname=as.data.frame(futbol[futbol$home_team=="Suriname"|futbol$away_team=="Suriname",])
+Tanzania=as.data.frame(futbol[futbol$home_team=="Tanzania"|futbol$away_team=="Tanzania",])
+EquatorialGuinea=as.data.frame(futbol[futbol$home_team=="Equatorial Guinea"|futbol$away_team=="Equatorial Guinea",])
+Ethiopia=as.data.frame(futbol[futbol$home_team=="Ethiopia"|futbol$away_team=="Ethiopia",])
+Senegal=as.data.frame(futbol[futbol$home_team=="Senegal"|futbol$away_team=="Senegal",])
+Eritrea=as.data.frame(futbol[futbol$home_team=="Eritrea"|futbol$away_team=="Eritrea",])
+SaintTomeandPrincipe=as.data.frame(futbol[futbol$home_team=="SÃ£o TomÃ© and PrÃ�ncipe"|futbol$away_team=="SÃ£o TomÃ© and PrÃ�ncipe",])
+IvoryCoast=as.data.frame(futbol[futbol$home_team=="Ivory Coast"|futbol$away_team=="Ivory Coast",])
+Armenia=as.data.frame(futbol[futbol$home_team=="Armenia"|futbol$away_team=="Armenia",])
+CookIslands=as.data.frame(futbol[futbol$home_team=="CookIslands"|futbol$away_team=="CookIslands",])
+Samoa=as.data.frame(futbol[futbol$home_team=="Samoa"|futbol$away_team=="Samoa",])
+SerbiaandMontenegro=as.data.frame(futbol[futbol$home_team=="Serbia and Montenegro"|futbol$away_team=="Serbia and Montenegro",])
+Malta=as.data.frame(futbol[futbol$home_team=="Malta"|futbol$away_team=="Malta",])
+Congo=as.data.frame(futbol[futbol$home_team=="Congo"|futbol$away_team=="Congo",])
+Malawi=as.data.frame(futbol[futbol$home_team=="Malawi"|futbol$away_team=="Malawi",])
+Myanmar=as.data.frame(futbol[futbol$home_team=="Myanmar"|futbol$away_team=="Myanmar",])
+Benin=as.data.frame(futbol[futbol$home_team=="Benin"|futbol$away_team=="Benin",])
+Togo=as.data.frame(futbol[futbol$home_team=="Togo"|futbol$away_team=="Togo",])
+Barbados=as.data.frame(futbol[futbol$home_team=="Barbados"|futbol$away_team=="Barbados",])
+AntiguaandBarbuda=as.data.frame(futbol[futbol$home_team=="Antigua and Barbuda"|futbol$away_team=="Antigua and Barbuda",])
+CaymanIslands=as.data.frame(futbol[futbol$home_team=="Cayman Islands"|futbol$away_team=="Cayman Islands",])
+Kenya=as.data.frame(futbol[futbol$home_team=="Kenya"|futbol$away_team=="Kenya",])
+NetherlandsAntilles=as.data.frame(futbol[futbol$home_team=="Netherlands Antilles"|futbol$away_team=="Netherlands Antilles",])
+BritishVirginIslands=as.data.frame(futbol[futbol$home_team=="British Virgin Islands"|futbol$away_team=="British Virgin Islands",])
+U.S.VirginIslands=as.data.frame(futbol[futbol$home_team=="U.S. Virgin Islands"|futbol$away_team=="U.S. Virgin Islands",])
+Bermuda=as.data.frame(futbol[futbol$home_team=="Bermuda"|futbol$away_team=="Bermuda",])
+Aruba=as.data.frame(futbol[futbol$home_team=="Aruba"|futbol$away_team=="Aruba",])
+SaintKittsandNevis=as.data.frame(futbol[futbol$home_team=="Saint Kitts and Nevis"|futbol$away_team=="Saint Kitts and Nevis",])
+Dominica=as.data.frame(futbol[futbol$home_team=="Dominica"|futbol$away_team=="Dominica",])
+Grenada=as.data.frame(futbol[futbol$home_team=="Grenada"|futbol$away_team=="Grenada",])
+Luxembourg=as.data.frame(futbol[futbol$home_team=="Luxembourg"|futbol$away_team=="Luxembourg",])
+Macedonia=as.data.frame(futbol[futbol$home_team=="Macedonia"|futbol$away_team=="Macedonia",])
+Georgia=as.data.frame(futbol[futbol$home_team=="Georgia"|futbol$away_team=="Georgia",])
+Azerbaijan=as.data.frame(futbol[futbol$home_team=="Azerbaijan"|futbol$away_team=="Azerbaijan",])
+Tonga=as.data.frame(futbol[futbol$home_team=="Tonga"|futbol$away_team=="Tonga",])
+Serbia=as.data.frame(futbol[futbol$home_team=="Serbia"|futbol$away_team=="Serbia",])
+Iran=as.data.frame(futbol[futbol$home_team=="Iran"|futbol$away_team=="Iran",])
+Tunisia=as.data.frame(futbol[futbol$home_team=="Tunisia"|futbol$away_team=="Tunisia",])
+Kyrgyzstan=as.data.frame(futbol[futbol$home_team=="Kyrgyzstan"|futbol$away_team=="Kyrgyzstan",])
+Palestine=as.data.frame(futbol[futbol$home_team=="Palestine"|futbol$away_team=="Palestine",])
+Maldives=as.data.frame(futbol[futbol$home_team=="Maldives"|futbol$away_team=="Maldives",])
+Jordan=as.data.frame(futbol[futbol$home_team=="Jordan"|futbol$away_team=="Jordan",])
+Namibia=as.data.frame(futbol[futbol$home_team=="Namibia"|futbol$away_team=="Namibia",])
+Botswana=as.data.frame(futbol[futbol$home_team=="Botswana"|futbol$away_team=="Botswana",])
+TurksandCaicosIslands=as.data.frame(futbol[futbol$home_team=="Turks and Caicos Islands"|futbol$away_team=="Turks and Caicos Islands",])
+Anguilla=as.data.frame(futbol[futbol$home_team=="Anguilla"|futbol$away_team=="Anguilla",])
+Cuba=as.data.frame(futbol[futbol$home_team=="Cuba"|futbol$away_team=="Cuba",])
+Guyana=as.data.frame(futbol[futbol$home_team=="Guyana"|futbol$away_team=="Guyana",])
+SolomonIslands=as.data.frame(futbol[futbol$home_team=="Solomon Islands"|futbol$away_team=="Solomon Islands",])
+Tahiti=as.data.frame(futbol[futbol$home_team=="Tahiti"|futbol$away_team=="Tahiti",])
+Vanuatu=as.data.frame(futbol[futbol$home_team=="Vanuatu"|futbol$away_team=="Vanuatu",])
+GreatBritain=as.data.frame(futbol[futbol$home_team=="Great Britain"|futbol$away_team=="Great Britain",])
+Bangladesh=as.data.frame(futbol[futbol$home_team=="Bangladesh"|futbol$away_team=="Bangladesh",])
+Bahrain=as.data.frame(futbol[futbol$home_team=="Bahrain"|futbol$away_team=="Bahrain",])
+Lebanon=as.data.frame(futbol[futbol$home_team=="Lebanon"|futbol$away_team=="Lebanon",])
+BurkinaFaso=as.data.frame(futbol[futbol$home_team=="Burkina Faso"|futbol$away_team=="Burkina Faso",])
+Rwanda=as.data.frame(futbol[futbol$home_team=="Rwanda"|futbol$away_team=="Rwanda",])
+Belize=as.data.frame(futbol[futbol$home_team=="Belize"|futbol$away_team=="Belize",])
+Comoros=as.data.frame(futbol[futbol$home_team=="Comoros"|futbol$away_team=="Comoros",])
+Moldova=as.data.frame(futbol[futbol$home_team=="Moldova"|futbol$away_team=="Moldova",])
+Andorra=as.data.frame(futbol[futbol$home_team=="Andorra"|futbol$away_team=="Andorra",])
+Albania=as.data.frame(futbol[futbol$home_team=="Albania"|futbol$away_team=="Albania",])
+Montenegro=as.data.frame(futbol[futbol$home_team=="Montenegro"|futbol$away_team=="Montenegro",])
+Libya=as.data.frame(futbol[futbol$home_team=="Libya"|futbol$away_team=="Libya",])
+Mauritius=as.data.frame(futbol[futbol$home_team=="Mauritius"|futbol$away_team=="Mauritius",])
+Tajikistan=as.data.frame(futbol[futbol$home_team=="Tajikistan"|futbol$away_team=="Tajikistan",])
+Kosovo=as.data.frame(futbol[futbol$home_team=="Kosovo"|futbol$away_team=="Kosovo",])
+UnitedArabEmirates=as.data.frame(futbol[futbol$home_team=="United Arab Emirates"|futbol$away_team=="United Arab Emirates",])
+Iraq=as.data.frame(futbol[futbol$home_team=="Iraq"|futbol$away_team=="Iraq",])
+Syria=as.data.frame(futbol[futbol$home_team=="Syria"|futbol$away_team=="Syria",])
+Guadeloupe=as.data.frame(futbol[futbol$home_team=="Guadeloupe"|futbol$away_team=="Guadeloupe",])
+Curazao=as.data.frame(futbol[futbol$home_team=="CuraÃ§ao"|futbol$away_team=="CuraÃ§ao",])
+Gambia=as.data.frame(futbol[futbol$home_team=="Gambia"|futbol$away_team=="Gambia",])
+CentralAfricanRepublic=as.data.frame(futbol[futbol$home_team=="Central African Republic"|futbol$away_team=="Central African Republic",])
+AmericanSamoa=as.data.frame(futbol[futbol$home_team=="American Samoa"|futbol$away_team=="American Samoa",])
 
+```
+
+
+```{r}
+'''
 for (p in 2:187)
   {
   for (f in 2:nrow(futbol) )
@@ -149,46 +322,218 @@ for (p in 2:187)
   rend = puntos / ((nrow((futbol[futbol$home_team == paises[p] | futbol$away_team == paises[p] ,]))-1)*3)
   rendimiento = c(rendimiento, rend)
 }
-
-
-
-rendimiento = c()
-
+'''
 rendimiento_pais = function(pais){
   puntos = 0
-  for (indice in 2:nrow(paises))
-    {
-    if (futbol[indice,2] == pais & (futbol[indice,4] > futbol[indice,5]) | 
-        futbol[indice,3] == pais & (futbol[indice,4] < futbol[indice,5]) )
-    {puntos = puntos + 3}
+  for (i in 1:nrow(pais))
     
-    if (futbol[indice,4] == futbol[indice,5])
-    {puntos = puntos + 1}
-    
-  rend = puntos / ((nrow(chile)-1)*3)
-  rendimiento = c(rendimiento, rend)
+  {if (pais[i,4]>pais[i,5] | pais[i,4]< pais[i,5])
+    puntos = puntos + 3
+  
+  if (pais[i,4] == pais[i,5])
+    puntos = puntos+1
   }
+  rendimiento_p = puntos / (nrow(pais)*3)
 }
 
-rendimiento_pais(Chile)
-
-for (i in paises){
-  rendimiento_pais(i)
-}
+RendStVGrenadines=rendimiento_pais(StVGrenadines)
+RendItaly=rendimiento_pais(Italy)             
+RendDenmark=rendimiento_pais(Denmark)
+RendEngland=rendimiento_pais(England)
+RendThailand=rendimiento_pais(Thailand)
+RendHongKong=rendimiento_pais(HongKong)
+RendNewZealand=rendimiento_pais(NewZealand)
+RendAustralia=rendimiento_pais(Australia)
+RendChineseTaipei=rendimiento_pais(ChineseTaipei)
+RendIndonesia=rendimiento_pais(Indonesia)
+RendSingapore=rendimiento_pais(Singapore)
+RendSweden=rendimiento_pais(Sweden)
+RendNorthernIreland=rendimiento_pais(NorthernIreland)
+RendFrance=rendimiento_pais(France)
+RendSwitzerland=rendimiento_pais(Switzerland)
+RendWales=rendimiento_pais(Wales)
+RendIndiaN=rendimiento_pais(IndiaN)
+RendWesternAustralia=rendimiento_pais(WesternAustralia)
+RendIndiaS=rendimiento_pais(IndiaS)
+RendJapan=rendimiento_pais(Japan)
+RendIndia=rendimiento_pais(India)
+RendFinland=rendimiento_pais(Finland)
+RendNorway=rendimiento_pais(Norway)
+RendIceland=rendimiento_pais(Iceland)
+RendScotland=rendimiento_pais(Scotland)
+RendBelgium=rendimiento_pais(Belgium)
+RendNetherlands=rendimiento_pais(Netherlands)
+RendRepublicofIreland=rendimiento_pais(RepublicofIreland)
+RendPortugal=rendimiento_pais(Portugal)
+RendGermany=rendimiento_pais(Germany)
+RendMalaysia=rendimiento_pais(Malaysia)
+RendPhilippines=rendimiento_pais(Philippines)
+RendNewCaledonia=rendimiento_pais(NewCaledonia)
+RendHungary=rendimiento_pais(Hungary)
+RendSpain=rendimiento_pais(Spain)
+RendChinaPR=rendimiento_pais(ChinaPR)
+RendCzechoslovakia=rendimiento_pais(Czechoslovakia)
+RendBulgaria=rendimiento_pais(Bulgaria)
+RendPoland=rendimiento_pais(Poland)
+RendNorthKorea=rendimiento_pais(NorthKorea)
+RendNigeria=rendimiento_pais(Nigeria)
+RendGhana=rendimiento_pais(Ghana)
+RendCanada=rendimiento_pais(Canada)
+RendHaiti=rendimiento_pais(Haiti)
+RendUnitedStates=rendimiento_pais(UnitedStates)
+RendMartinique=rendimiento_pais(Martinique)
+RendTrinidadandTobago=rendimiento_pais(TrinidadandTobago)
+RendJamaica=rendimiento_pais(Jamaica)
+RendBrazil=rendimiento_pais(Brazil)
+RendChile=rendimiento_pais(Chile)
+RendGuinea=rendimiento_pais(Guinea)
+RendPapuaNewGuinea=rendimiento_pais(PapuaNewGuinea)
+RendCameroon=rendimiento_pais(Cameroon)
+RendRussia=rendimiento_pais(Russia)
+RendGreece=rendimiento_pais(Greece)
+RendRomania=rendimiento_pais(Romania)
+RendYugoslavia=rendimiento_pais(Yugoslavia)
+RendLithuania=rendimiento_pais(Lithuania)
+RendUkraine=rendimiento_pais(Ukraine)
+RendLatvia=rendimiento_pais(Latvia)
+RendSlovenia=rendimiento_pais(Slovenia)
+RendSlovakia=rendimiento_pais(Slovakia)
+RendCroatia=rendimiento_pais(Croatia)
+RendCzechRepublic=rendimiento_pais(CzechRepublic)
+RendMexico=rendimiento_pais(Mexico)
+RendSouthAfrica=rendimiento_pais(SouthAfrica)
+RendSierraLeone=rendimiento_pais(SierraLeone)
+RendZambia=rendimiento_pais(Zambia)
+RendArgentina=rendimiento_pais(Argentina)
+RendEcuador=rendimiento_pais(Ecuador)
+RendAngola=rendimiento_pais(Angola)
+RendAustria=rendimiento_pais(Austria)
+RendUzbekistan=rendimiento_pais(Uzbekistan)
+RendFaroeIslands=rendimiento_pais(FaroeIslands)
+RendSouthKorea=rendimiento_pais(SouthKorea)
+RendKazakhstan=rendimiento_pais(Kazakhstan)
+RendFRYugoslavia=rendimiento_pais(FRYugoslavia)
+RendBelarus=rendimiento_pais(Belarus)
+RendEstonia=rendimiento_pais(Estonia)
+RendTurkey=rendimiento_pais(Turkey)
+RendParaguay=rendimiento_pais(Paraguay)
+RendColombia=rendimiento_pais(Colombia)
+RendUruguay=rendimiento_pais(Uruguay)
+RendVenezuela=rendimiento_pais(Venezuela)
+RendBolivia=rendimiento_pais(Bolivia)
+RendPeru=rendimiento_pais(Peru)
+RendMozambique=rendimiento_pais(Mozambique)
+RendEgypt=rendimiento_pais(Egypt)
+RendGuatemala=rendimiento_pais(Guatemala)
+RendElSalvador=rendimiento_pais(ElSalvador)
+RendCostaRica=rendimiento_pais(CostaRica)
+RendPuertoRico=rendimiento_pais(PuertoRico)
+RendFiji=rendimiento_pais(Fiji)
+RendDRCongo=rendimiento_pais(DRCongo)
+RendUganda=rendimiento_pais(Uganda)
+RendMorocco=rendimiento_pais(Morocco)
+RendEswatini=rendimiento_pais(Eswatini)
+RendLesotho=rendimiento_pais(Lesotho)
+RendHonduras=rendimiento_pais(Honduras)
+RendNicaragua=rendimiento_pais(Nicaragua)
+RendBosniaandHerzegovina=rendimiento_pais(BosniaandHerzegovina)
+RendIsrael=rendimiento_pais(Israel)
+RendVietnam=rendimiento_pais(Vietnam)
+RendGuam=rendimiento_pais(Guam)
+RendReunion=rendimiento_pais(Reunion)
+RendGabon=rendimiento_pais(Gabon)
+RendZimbabwe=rendimiento_pais(Zimbabwe)
+RendAlgeria=rendimiento_pais(Algeria)
+RendDominicanRepublic=rendimiento_pais(DominicanRepublic)
+RendSaintLucia=rendimiento_pais(SaintLucia)
+RendMali=rendimiento_pais(Mali)
+RendPanama=rendimiento_pais(Panama)
+RendSuriname=rendimiento_pais(Suriname)
+RendTanzania=rendimiento_pais(Tanzania)
+RendEquatorialGuinea=rendimiento_pais(EquatorialGuinea)
+RendEthiopia=rendimiento_pais(Ethiopia)
+RendSenegal=rendimiento_pais(Senegal)
+RendEritrea=rendimiento_pais(Eritrea)
+RendSaintTomeandPrincipe=rendimiento_pais(SaintTomeandPrincipe)
+RendIvoryCoast=rendimiento_pais(IvoryCoast)
+RendArmenia=rendimiento_pais(Armenia)
+RendCookIslands=rendimiento_pais(CookIslands)
+RendSamoa=rendimiento_pais(Samoa)
+RendSerbiaandMontenegro=rendimiento_pais(SerbiaandMontenegro)
+RendMalta=rendimiento_pais(Malta)
+RendCongo=rendimiento_pais(Congo)
+RendMalawi=rendimiento_pais(Malawi)
+RendMyanmar=rendimiento_pais(Myanmar)
+RendBenin=rendimiento_pais(Benin)
+RendTogo=rendimiento_pais(Togo)
+RendBarbados=rendimiento_pais(Barbados)
+RendAntiguaandBarbuda=rendimiento_pais(AntiguaandBarbuda)
+RendCaymanIslands=rendimiento_pais(CaymanIslands)
+RendKenya=rendimiento_pais(Kenya)
+RendNetherlandsAntilles=rendimiento_pais(NetherlandsAntilles)
+RendBritishVirginIslands=rendimiento_pais(BritishVirginIslands)
+RendU.S.VirginIslands=rendimiento_pais(U.S.VirginIslands)
+RendBermuda=rendimiento_pais(Bermuda)
+RendAruba=rendimiento_pais(Aruba)
+RendSaintKittsandNevis=rendimiento_pais(SaintKittsandNevis)
+RendDominica=rendimiento_pais(Dominica)
+RendGrenada=rendimiento_pais(Grenada)
+RendLuxembourg=rendimiento_pais(Luxembourg)
+RendMacedonia=rendimiento_pais(Macedonia)
+RendGeorgia=rendimiento_pais(Georgia)
+RendAzerbaijan=rendimiento_pais(Azerbaijan)
+RendTonga=rendimiento_pais(Tonga)
+RendSerbia=rendimiento_pais(Serbia)
+RendIran=rendimiento_pais(Iran)
+RendTunisia=rendimiento_pais(Tunisia)
+RendKyrgyzstan=rendimiento_pais(Kyrgyzstan)
+RendPalestine=rendimiento_pais(Palestine)
+RendMaldives=rendimiento_pais(Maldives)
+RendJordan=rendimiento_pais(Jordan)
+RendNamibia=rendimiento_pais(Namibia)
+RendBotswana=rendimiento_pais(Botswana)
+RendTurksandCaicosIslands=rendimiento_pais(TurksandCaicosIslands)
+RendAnguilla=rendimiento_pais(Anguilla)
+RendCuba=rendimiento_pais(Cuba)
+RendGuyana=rendimiento_pais(Guyana)
+RendSolomonIslands=rendimiento_pais(SolomonIslands)
+RendTahiti=rendimiento_pais(Tahiti)
+RendVanuatu=rendimiento_pais(Vanuatu)
+RendGreatBritain=rendimiento_pais(GreatBritain)
+RendBangladesh=rendimiento_pais(Bangladesh)
+RendBahrain=rendimiento_pais(Bahrain)
+RendLebanon=rendimiento_pais(Lebanon)
+RendBurkinaFaso=rendimiento_pais(BurkinaFaso)
+RendRwanda=rendimiento_pais(Rwanda)
+RendBelize=rendimiento_pais(Belize)
+RendComoros=rendimiento_pais(Comoros)
+RendMoldova=rendimiento_pais(Moldova)
+RendAndorra=rendimiento_pais(Andorra)
+RendAlbania=rendimiento_pais(Albania)
+RendMontenegro=rendimiento_pais(Montenegro)
+RendLibya=rendimiento_pais(Libya)
+RendMauritius=rendimiento_pais(Mauritius)
+RendTajikistan=rendimiento_pais(Tajikistan)
+RendKosovo=rendimiento_pais(Kosovo)
+RendUnitedArabEmirates=rendimiento_pais(UnitedArabEmirates)
+RendIraq=rendimiento_pais(Iraq)
+RendSyria=rendimiento_pais(Syria)
+RendGuadeloupe=rendimiento_pais(Guadeloupe)
+RendCurazao=rendimiento_pais(Curazao)
+RendGambia=rendimiento_pais(Gambia)
+RendCentralAfricanRepublic=rendimiento_pais(CentralAfricanRepublic)
+RendAmericanSamoa=rendimiento_pais(AmericanSamoa)
 
 ```
 
 
 
 ```{r, include=FALSE}
-#Prueba de GG plot
 
-ggplot(futbol, aes(x = date[4141:], y = country)) +
-  labs(title = "Título",
-       subtitle = "Subtítulo",
-       x = "x label",
-       y = "y label",
-       caption = "caption")
+genero <- na.omit(genero)
+plot(genero$X2018,genero$Country)
+
+ggplot(x = genero$X2018, y = genero$Country)
 
 ```
 
